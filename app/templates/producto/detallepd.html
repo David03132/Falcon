@@ -1,0 +1,220 @@
+{% extends "layouts/base.html" %}
+{% load static %} {% block content %}
+
+<!-- Product section-->
+<section class="py-1">
+    <div class="container px-4 px-lg-5 my-3">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            {% if producto.imagen %}
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="{{ producto.imagen.url }}" /></div>
+            {% else %}
+            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /></div>
+            {% endif %}
+            <div class="col-md-6">
+                <div class="small mb-1">Código: {{ producto.id }}</div>
+               
+                
+                <div class="col-md-6"><img class="card-img-top mt-3 mb-5 mb-md-0 " src="../../../media/{{ producto.marca }}" /></div>
+                
+                
+                
+                
+                
+                <h3 class="display-5 fw-bolder">{{ producto.nombre }}</h3>
+                <div class="fs-5 mb-5">
+                   
+                    <span><h2>$ {{ producto.precio }} </h2></span> 
+                </div>
+               
+                <h4> Cantidad Disponible "{{ producto.stock }}" </h4>
+                <div class="d-flex">
+                     
+                    
+                   
+
+                    {% if user.is_authenticated%}
+                        <a href="{% url 'tienda:addcart' producto.id %}"  type="button" class="btn btn-outline-info flex-shrink-0" style="width: 200px;" data-toggle="modal" data-target="#modal1">
+                            Comprar
+                        </a>
+                        
+                        
+                         <!--Modal -->
+                        <div class="modal fade" id="modal1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="model-title text-center">
+                                        <h4><b>¿AGREGAR AL CARRO DE COMPRAS?</b></h4>
+                                    </div>
+
+
+                                    <div class="model-body">
+                                        <img src="{{ producto.imagen.url }}" width="100%" alt="">
+                                        <h5 class="text-center">{{ producto.nombre }}
+                                        </h5>
+                                        <h3 class="text-center">$ {{ producto.precio }}</h3>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Seguir Comprando</button>
+                                        <a href="{% url 'tienda:addcart' producto.id %}">
+                                            <button type="button" class="btn btn-primary">Agregar</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="container p-5">
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item mr-1 active">
+                    <a href="#section-one" class="nav-link bg-primary text-white" data-toggle="tab">GENERAL</a>
+                </li>
+                
+                <li class="nav-item ml-1">
+                    <a href="#section-three" class="nav-link bg-info text-white" data-toggle="tab">GARANTIA</a>
+                </li>
+            </ul>
+            <div class="tab-content shadow-lg">
+                <div class="tab-pane fade show bg-white text-dark active" id="section-one">
+                    
+                    <p class="p-4">{{ producto.descripcion }}</p>
+                    
+                    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+                    <div id="player" style="width: 100%;"></div>
+
+                    <script>
+                        // 2. This code loads the IFrame Player API code asynchronously.
+                        var tag = document.createElement('script');
+
+                        tag.src = "https://www.youtube.com/iframe_api";
+                        var firstScriptTag = document.getElementsByTagName('script')[0];
+                        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                        // 3. This function creates an <iframe> (and YouTube player)
+                        //    after the API code downloads.
+                        var player;
+                        function onYouTubeIframeAPIReady() {
+                            player = new YT.Player('player', {
+                                height: '360',
+                                width: '640',
+                                videoId: '{{ producto.videoid }}',
+                                events: {
+                                    
+                                    'onStateChange': onPlayerStateChange
+                                }
+                            });
+                        }
+
+                        // 4. The API will call this function when the video player is ready.
+                        function onPlayerReady(event) {
+                            event.target.playVideo();
+                        }
+
+                        // 5. The API calls this function when the player's state changes.
+                        //    The function indicates that when playing a video (state=1),
+                        //    the player should play for six seconds and then stop.
+                        var done = false;
+                        function onPlayerStateChange(event) {
+                            if (event.data == YT.PlayerState.PLAYING && !done) {                              
+                                done = true;
+                            }
+                        }
+                        function stopVideo() {
+                            player.stopVideo();
+                            player.pauseVideo()
+                        }
+                    </script>
+
+
+                </div>
+
+                <div class="tab-pane fade bg-white text-dark" id="section-two">
+
+                    <table class="container-fluid" border="5" style="border: solid #2E92F0;">
+                        <tr>
+                            <th>SKU</th>
+                            <td>{{ producto.id }}</td>
+
+                        </tr>
+                        <tr>
+                            <th>Marca</th>
+                            <td>MSI</td>
+
+                        </tr>
+                        <tr>
+                            <th>Plataforma</th>
+                            <td>INTEL</td>
+
+                        </tr>
+                        <tr>
+                            <th>Factor de forma</th>
+                            <td>ATX</td>
+
+                        </tr>
+                        <tr>
+                            <th>Socket</th>
+                            <td>LGA 1151</td>
+
+                        </tr>
+                        <tr>
+                            <th>Chipset</th>
+                            <td>LGA 1151</td>
+
+                        </tr>
+                        <tr>
+                            <th>Tipo de memoria</th>
+                            <td>DDR4 DIMM</td>
+
+                        </tr>
+                        <tr>
+                            <th>Slots de memoria</th>
+                            <td>4</td>
+
+                        </tr>
+                        <tr>
+                            <th>Puertos SATA III</th>
+                            <td>4</td>
+
+                        </tr>
+                        <tr>
+                            <th>Puertos M.2</th>
+                            <td>2</td>
+
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div class="tab-pane fade bg-white text-dark" id="section-three">
+                    <h3 class="p-4">1. El producto NO puede estar abierto</h3>
+                    <p class="p-3">2. El producto DEBE tener todos sus embalajes originales completos en la misma forma
+                        en las que fueron entregados, no pueden estar los sellos abiertos o rotos</p>
+                    <p class="p-3">3. El producto DEBE incluir todos sus accesorios sin uso</p>
+                    <p class="p-3">4. Para los productos devueltos por garantía, en primera instancia se le realizará un
+                        informe técnico, en el cual se validará que el producto no haya sido mal utilizado y que la
+                        falla es atribuible al producto, de ser así la garantía podrá aplicarse</p>
+                    <p class="p-3">5. El producto NO puede presentar uso</p>
+                    <p class="p-3">6. En el caso de que el producto no presente la falla descrita por el cliente o en su
+                        defecto se compruebe que existió una mala manipulación de este, la garantía no aplicará y se
+                        podrán cargar al cliente los costos respectivos por revisión de servicio técnico, almacenaje y/o
+                        transporte. Estos costos serán informados previamente una vez recepcionado el producto</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

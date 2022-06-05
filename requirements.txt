@@ -1,0 +1,6 @@
+pip install django
+pip install django_bootstrap_icons
+pip install django-crispy-forms
+pip install pymysql
+pip install social-auth-app-django
+pip install Pillow
