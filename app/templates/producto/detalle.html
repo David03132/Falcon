@@ -20,11 +20,11 @@
                 
                 
                 
-                
+                {% load humanize %}
                 <h3 class="display-5 fw-bolder">{{ producto.nombre }}</h3>
                 <div class="fs-5 mb-5">
                    
-                    <span><h2>$ {{ producto.precio }} </h2></span> 
+                    <span><h2>$ {{ producto.precio | intcomma}} </h2></span> 
                 </div>
                
                 <h4> Cantidad Disponible: {{ producto.stock }} </h4>
