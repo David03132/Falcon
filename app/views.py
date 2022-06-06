@@ -136,7 +136,7 @@ def listarProductos(request):
             'title': 'LISTADO DE PRODUCTOS',
             'paginator': paginator
             }
-    return render(request, 'producto/listar.html', data)
+    return render(request, 'listados/listadoproductos.html', data)
 
 
 @login_required(login_url='/login')
@@ -166,18 +166,18 @@ def deleteProducto(request, id):
     return redirect(to="/listarproductos")
 
 def nosotros(request):
-    return render(request, 'nosotros.html')
+    return render(request, 'InfoFlacon/nosotros.html')
 
 def garantia(request):
     return render(request, 'garantia.html')
 
 def devoluciones(request):
-    return render(request, 'devoluciones.html')
+    return render(request, 'InfoFlacon/devoluciones.html')
 
 @login_required(login_url='/login')
 @permission_required('user.is_staff', login_url='/')
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    return render(request, 'admin/dashboard.html')
 
 
 # Views categorias
@@ -198,7 +198,7 @@ def listCategorias(request):
             'paginator': paginator
             }
 
-    return render(request,'listadocategorias.html', data)
+    return render(request,'listados/listadocategorias.html', data)
 
 
 @login_required(login_url='/login')
@@ -266,7 +266,7 @@ def listMarcas(request):
             'paginator': paginator
             }
 
-    return render(request,'listadomarcas.html', data)
+    return render(request,'listados/listadomarcas.html', data)
 
 
 @login_required(login_url='/login')
@@ -334,7 +334,7 @@ def listUsuarios(request):
             'paginator': paginator
             }
 
-    return render(request,'listadousuarios.html', data)
+    return render(request,'listados/listadousuarios.html', data)
 
 
 @login_required(login_url='/login')
