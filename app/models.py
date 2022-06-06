@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 # Create your models here.
 class Categorias(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField('Nombre',max_length=100)
 
     def __str__(self):
         return self.nombre
@@ -18,8 +18,8 @@ class Categorias(models.Model):
         ordering = ['id']
         
 class Marcas(models.Model):
-    nombre = models.CharField(max_length=100)
-    imagen = models.ImageField(upload_to='marcas', null=True)
+    nombre = models.CharField('Nombre',max_length=100)
+    imagen = models.ImageField('Imagen',upload_to='marcas', null=True)
     
     def __str__(self):
         return str(self.nombre)
@@ -33,14 +33,14 @@ class Marcas(models.Model):
 
 #modelo Productos
 class Productos(models.Model):
-    nombre = models.CharField(max_length=100)
-    imagen = models.ImageField(upload_to='productos', null=True)
-    descripcion = models.CharField(max_length=500)
-    precio = models.PositiveIntegerField()
-    stock = models.IntegerField(null=True, default=0, validators=[MaxValueValidator(100),
+    nombre = models.CharField('Nombre',max_length=100)
+    imagen = models.ImageField('Imagen',upload_to='productos', null=True)
+    descripcion = models.CharField('Descripcion',max_length=500)
+    precio = models.PositiveIntegerField('Precio')
+    stock = models.IntegerField('Stock',null=True, default=0, validators=[MaxValueValidator(100),
             MinValueValidator(1)])     
-    videoid = models.CharField(max_length=100, null=True)
-    destacado= models.BooleanField()
+    videoid = models.CharField('Enlace del video',max_length=100, null=True)
+    destacado= models.BooleanField('¿Es destacado?')
     categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT)
     marca = models.ForeignKey(Marcas, on_delete=models.PROTECT) 
     
@@ -58,7 +58,7 @@ class Productos(models.Model):
 
 
 class Metodo_Pago(models.Model):
-    nombre_metodo= models.CharField(max_length=50)
+    nombre_metodo= models.CharField('Metodo de pago',max_length=50)
 
     def __str__(self):
         return self.nombre_metodo
@@ -70,9 +70,9 @@ class Metodo_Pago(models.Model):
 
 
 class Region (models.Model):
-    nombre_region= models.CharField(max_length=50)
-    abreviatura = models.CharField(max_length=4)
-    capital = models.CharField(max_length=64)
+    nombre_region= models.CharField('Nombre region',max_length=50)
+    abreviatura = models.CharField('Abreviatura',max_length=4)
+    capital = models.CharField('Capital',max_length=64)
     
     def __str__(self):
         return self.nombre_region
@@ -85,7 +85,7 @@ class Region (models.Model):
 
 
 class Provincia (models.Model):
-    nombre_provincia= models.CharField(max_length=50)
+    nombre_provincia= models.CharField('Nombre provincia',max_length=50)
     region= models.ForeignKey(Region, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -98,7 +98,7 @@ class Provincia (models.Model):
 
 
 class Comuna(models.Model):
-    nombre_comuna= models.CharField(max_length=50)
+    nombre_comuna= models.CharField('Nombre comuna',max_length=50)
     provincia= models.ForeignKey(Provincia, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -126,7 +126,7 @@ class Envio(models.Model):
             
 class Cliente(AbstractUser):
     username  = models.CharField('Nombre de usuario',max_length=50, unique=True) 
-    email = models.CharField(max_length=50, unique=True)
+    email = models.CharField('Email',max_length=50, unique=True)
     first_name = models.CharField('Primer nombre',max_length=50, null=False)
     last_name = models.CharField('Apellido paterno',max_length=50, null=False)
     ape_materno = models.CharField('Apellido materno',max_length=50, null=False)
@@ -147,9 +147,9 @@ class Cliente(AbstractUser):
         ordering = ['id']
     
 class Venta (models.Model):
-    monto = models.IntegerField()
-    fecha_venta= models.DateField()
-    estado_venta= models.CharField(max_length=50)
+    monto = models.IntegerField('Monto')
+    fecha_venta= models.DateField('Fecha de la venta')
+    estado_venta= models.CharField('Estado de la venta',max_length=50)
     usuario= models.ForeignKey(Cliente, on_delete=models.PROTECT)
     
 
@@ -163,14 +163,14 @@ class Venta (models.Model):
         ordering = ['id']
         
 class Trabajador (models.Model):
-    nombre= models.CharField(max_length=20)
-    apellido_paterno= models.CharField(max_length=30) 
-    apellido_materno= models.CharField(max_length=30)
-    fecha_nacimiento= models.DateField()
-    telefono= models.IntegerField()
-    email= models.EmailField(max_length=50)
-    usuario= models.CharField(max_length=20)
-    password= models.BinaryField()
+    nombre= models.CharField('Nombre',max_length=20)
+    apellido_paterno= models.CharField('Apellido paterno',max_length=30) 
+    apellido_materno= models.CharField('Apellido materno',max_length=30)
+    fecha_nacimiento= models.DateField('Fecha de nacimiento')
+    telefono= models.IntegerField('Telefono')
+    email= models.EmailField('Email',max_length=50)
+    usuario= models.CharField('Usuario',max_length=20)
+    password= models.BinaryField('Contraseña')
     venta= models.ForeignKey(Venta, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -182,14 +182,14 @@ class Trabajador (models.Model):
         ordering = ['nombre']
     
 class Proveedor (models.Model):
-    nombre= models.CharField(max_length=50)
-    razon_social= models.CharField(max_length=150)
-    sector_comercial= models.CharField(max_length=50)
-    tipo_documento= models.CharField(max_length=50)
-    num_documento= models.IntegerField()
-    telefono= models.IntegerField()
-    email= models.EmailField(max_length=50)
-    url= models.CharField(max_length=100)
+    nombre= models.CharField('Nombre',max_length=50)
+    razon_social= models.CharField('Razon social',max_length=150)
+    sector_comercial= models.CharField('Sector comercial',max_length=50)
+    tipo_documento= models.CharField('Tipo de documento',max_length=50)
+    num_documento= models.IntegerField('Numero de documento')
+    telefono= models.IntegerField('Telefono')
+    email= models.EmailField('Email',max_length=50)
+    url= models.CharField('Enlace sitio web',max_length=100)
     comuna= models.ForeignKey(Comuna, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -201,8 +201,8 @@ class Proveedor (models.Model):
         ordering = ['nombre']
 
 class Ingreso(models.Model):
-    fecha= models.DateField()
-    tipo_comprobante= models.CharField(max_length=50)
+    fecha= models.DateField('Fecha de ingreso')
+    tipo_comprobante= models.CharField('Tipo de comprobante',max_length=50)
     proveedor= models.ForeignKey(Proveedor, on_delete=models.PROTECT)
 
     def __str__(self):
@@ -214,11 +214,11 @@ class Ingreso(models.Model):
         ordering = ['fecha']
         
 class Detalle_Ingreso(models.Model):
-    precio_compra= models.IntegerField() 
-    precio_venta= models.IntegerField() 
-    stock_inicial= models.IntegerField(validators=[MaxValueValidator(100),
+    precio_compra= models.IntegerField('Precio de compra') 
+    precio_venta= models.IntegerField('Precio de venta',) 
+    stock_inicial= models.IntegerField('Stock inicial',validators=[MaxValueValidator(100),
             MinValueValidator(1)]) 
-    stock_actual= models.IntegerField(validators=[MaxValueValidator(100),
+    stock_actual= models.IntegerField('Stock actual',validators=[MaxValueValidator(100),
             MinValueValidator(1)])
     ingreso= models.ForeignKey(Ingreso, on_delete=models.PROTECT)
     
@@ -234,9 +234,9 @@ class Detalle_Ingreso(models.Model):
 
         
 class Carrito_Compras(models.Model):
-    cantidad= models.IntegerField()
-    subtotal= models.IntegerField()
-    cod_producto= models.IntegerField()
+    cantidad= models.IntegerField('Cantidad')
+    subtotal= models.IntegerField('Subtotal')
+    cod_producto= models.IntegerField('Codigo del producto')
     
     def __str__(self):
         return self.cantidad
