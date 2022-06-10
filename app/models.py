@@ -19,7 +19,7 @@ class Categorias(models.Model):
         
 class Marcas(models.Model):
     nombre = models.CharField('Nombre',max_length=100)
-    imagen = models.ImageField('Imagen',upload_to='marcas', null=True)
+    
     
     def __str__(self):
         return str(self.nombre)

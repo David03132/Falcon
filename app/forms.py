@@ -1,3 +1,4 @@
+from dataclasses import fields
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
@@ -24,7 +25,7 @@ class MarcaForm(forms.ModelForm):
     
     class Meta:
         model = Marcas
-        fields = ["nombre","imagen"]
+        fields = ["nombre"]
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -44,4 +45,10 @@ class CustomUserCreationFormListado(UserCreationForm):
     class Meta:
         model = Cliente
         fields = ["username", "first_name","last_name","ape_materno","email","password1","password2","region","provincia","comuna","calle","numero","depto"]
+
+class ProveedoresForm(forms.ModelForm):
+
+    class Meta:
+        model = Proveedor
+        fields = ["nombre","razon_social","sector_comercial","tipo_documento","num_documento","email","telefono","url", "comuna"]
         

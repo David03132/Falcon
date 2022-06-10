@@ -29,6 +29,7 @@ urlpatterns = [
     path('deleteProducto/<id>/', views.deleteProducto, name='deleteProducto'),
     path('listarproductos/', views.listarProductos, name='listarproductos'),
     
+    
     path('addcategoria/', views.addCategoria, name='addcategoria'),
     path('editcategoria/<id>/', views.modificarCategoria, name='editcategoria'),
     path('deleteCategoria/<id>/', views.deleteCategoria, name='deleteCategoria'),
@@ -40,6 +41,11 @@ urlpatterns = [
     path('addusuario/', views.addUsuario, name='addusuario'),
     path('editusuario/<id>/', views.modificarUsuario, name='editusuario'),
     path('deleteUsuario/<id>/', views.deleteUsuario, name='deleteUsuario'),
+
+    path('editproveedor/<id>/', views.modificarProveedor, name='editproveedor'),
+    path('addproveedor/', views.addProveedor, name='addproveedor'),
+    path('deleteProveedor/<id>/', views.deleteProveedor, name='deleteProveedor'),
+    path('listarproveedores/', views.listarProveedores, name='listarproveedores'),
     
     path('editperfilusuario/<id>/', views.modificarPerfilUsuario, name='editperfilusuario'),
         

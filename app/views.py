@@ -15,7 +15,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.views.generic import ListView, CreateView
 from django.db.models import Q
-from .forms import CustomUserCreationFormAdd, ProductoForm, CategoriaForm, CustomUserCreationForm, MarcaForm, CustomUserCreationFormListado
+from .forms import CustomUserCreationFormAdd, ProductoForm, CategoriaForm, CustomUserCreationForm, MarcaForm, CustomUserCreationFormListado, ProveedoresForm
 
 
 # Create your views here.
@@ -113,6 +113,24 @@ def addProducto(request):
             data["form"] = formulario   
     return render(request, 'producto/agregar.html', data)
 
+@login_required(login_url='/login')
+@permission_required('app.add_proveedor', login_url='/login')
+def addProveedor(request):
+    data = {
+        'form' : ProveedoresForm()
+    }
+
+    if request.method == 'POST':
+        formulario = ProveedoresForm(data=request.POST, files=request.FILES)
+
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Registro agregado correctamente")
+            return redirect(to="/listarproveedores")
+        else:
+            data["form"] = formulario   
+    return render(request, 'proveedores/agregar.html', data)
+
 
 
 @permission_required('view_Producto', login_url='/login')
@@ -137,6 +155,29 @@ def listarProductos(request):
             'paginator': paginator
             }
     return render(request, 'listados/listadoproductos.html', data)
+
+@permission_required('view_proveedores', login_url='/login')
+def listarProveedores(request):
+    busqueda = request.POST.get("buscador")
+    lista_proveedor = Proveedor.objects.order_by('id')
+    page = request.GET.get('page', 1)
+    if busqueda:
+        lista_proveedor = Proveedor.objects.filter(
+            Q(nombre__icontains = busqueda) |
+            Q(descripcion__icontains = busqueda)
+        ).distinct()
+
+    try:
+        paginator = Paginator(lista_proveedor, 6)
+        lista_proveedor = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {'entity': lista_proveedor,
+            'title': 'LISTADO DE PROVEEDORES',
+            'paginator': paginator
+            }
+    return render(request, 'listados/listadoproveedores.html', data)
 
 
 @login_required(login_url='/login')
@@ -377,6 +418,27 @@ def modificarUsuario(request, id):
     return render(request, 'usuarios/modificar.html', data)
 
 @login_required(login_url='/login')
+@permission_required('change_proveedor', login_url='/login')
+def modificarProveedor(request, id):
+
+    proveedor = get_object_or_404(Proveedor, id=id) 
+
+    data = {
+        'form': ProveedoresForm(instance=proveedor)
+    }
+
+    if request.method == 'POST':
+        formulario = ProveedoresForm(data=request.POST, instance=proveedor)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Registro modificado correctamente")
+            return redirect(to="/listadoproveedores")
+        else:
+            data["form"] = formulario
+
+    return render(request, 'proveedores/modificar.html', data)
+
+@login_required(login_url='/login')
 def modificarPerfilUsuario(request, id):
     usuario = get_object_or_404(Cliente, id=id)
     
@@ -413,7 +475,16 @@ def deleteUsuario(request, id):
     messages.success(request, "Registro eliminado correctamente")
     return redirect(to="/usuarios")
 
+@login_required(login_url='/login')
+@permission_required('delete_proveedor')
 
+def deleteProveedor(request, id):
+
+    proveedor = get_object_or_404(Proveedor, id=id)
+    
+    proveedor.delete()
+    messages.success(request, "Registro eliminado correctamente")
+    return redirect(to="/listarproveedores")
 
 
 

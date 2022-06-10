@@ -1,6 +1,6 @@
 {% extends 'layouts/baseadmin.html' %} {% block content %}
 <div class="min-vh-100 d-flex flex-colum py-4">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12 col-md-6 col-sm-4 animate__animated animate__backInRight animate__delay-0.4s">
                 <div class="card">
@@ -9,8 +9,8 @@
                     </div>
                     <div class="card-body  table-responsive">
                         <div class="d-flex justify-content-end mb-2 mx-2">
-                            <a href="/addusuario" class="btn btn-dark btn-sm pull-right" type="submit">
-                            Nuevo Usuario
+                            <a href="/addproveedor" class="btn btn-dark btn-sm pull-right" type="submit">
+                            Nuevo Proveedor
                             </a>
                         </div>
                         <table class="table table-condensed">
@@ -18,41 +18,37 @@
                                 <tr class="text-center">
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">email</th>
-                                    <th scope="col">Primer nombre</th>
-                                    <th scope="col">Apellido paterno</th>
-                                    <th scope="col">Apellido materno</th>
-                                    <th scope="col">Calle</th>
-                                    <th scope="col">Numero</th>
-                                    <th scope="col">Depto</th>
-                                    <th scope="col">Region</th>
-                                    <th scope="col">Provincia</th>
+                                    <th scope="col">Razon social</th>
+                                    <th scope="col">Sector comercial</th>
+                                    <th scope="col">Tipo documento</th>
+                                    <th scope="col">Num. documento</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">URL</th>
                                     <th scope="col">Comuna</th>
                                     <th colspan="2">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% load bootstrap_icons %} {% if entity %} {% for usuario in entity %}
+                                {% load bootstrap_icons %} {% if entity %} {% for proveedor in entity %}
                                 <tr>
-                                    <td>{{ usuario.id }}</td>
-                                    <td>{{ usuario.username }}</td>
-                                    <td>{{ usuario.email }}</td>
-                                    <td>{{ usuario.first_name }}</td>
-                                    <td>{{ usuario.last_name }}</td>
-                                    <td>{{ usuario.ape_materno }}</td>
-                                    <td>{{ usuario.calle }}</td>
-                                    <td>{{ usuario.numero }}</td>
-                                    <td>{{ usuario.depto }}</td>
-                                    <td>{{ usuario.region }}</td>
-                                    <td>{{ usuario.provincia }}</td>
-                                    <td>{{ usuario.comuna }}</td>
+                                    <td>{{ proveedor.id }}</td>
+                                    <td>{{ proveedor.nombre }}</td>
+                                    <td>{{ proveedor.razon_social }}</td>
+                                    <td>{{ proveedor.sector_comercial }}</td>
+                                    <td>{{ proveedor.tipo_documento }}</td>
+                                    <td>{{ proveedor.num_documento }}</td>
+                                    <td>{{ proveedor.telefono }}</td>
+                                    <td>{{ proveedor.email }}</td>
+                                    <td>{{ proveedor.url }}</td>
+                                    <td>{{ proveedor.comuna }}</td>
                                     <td colspan="2" class="text-center">
-                                        <a class="btn btn-secondary btn-sm" href="{% url 'tienda:editusuario' usuario.id %}" type="button"><i class="fa fa-pencil"></i></a>
-                                        <a class="btn btn-danger btn-sm" onclick="eliminarUsuario({{usuario.id}})" href="#" type="button"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-secondary btn-sm" href="{% url 'tienda:editproveedor' proveedor.id %}" type="button"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-danger btn-sm" onclick="eliminarProveedor({{proveedor.id}})" href="#" type="button"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <script>
-                                    function eliminarUsuario(id){
+                                    function eliminarProveedor(id){
                                         Swal.fire({
                                             "title":"¿Estas seguro?",
                                             "text":"Esta accion no se puede deshacer",
@@ -65,14 +61,14 @@
                                         })
                                         .then(function(result){
                                             if(result.isConfirmed){
-                                                window.location.href = "{% url 'tienda:deleteUsuario' usuario.id %}"
+                                                window.location.href = "{% url 'tienda:deleteProveedor' proveedor.id %}"
                                             }
                                         })
                                     }
                                 </script>
                                 {% endfor %} {% else %}
                                 <div class="text-center text-warning">
-                                    <h3> No existen Usuarios</h3>
+                                    <h3> No existen Proveedores</h3>
                                 </div>
                                 {% endif %}
                             </tbody>
