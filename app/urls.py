@@ -47,6 +47,10 @@ urlpatterns = [
     path('deleteProveedor/<id>/', views.deleteProveedor, name='deleteProveedor'),
     path('listarproveedores/', views.listarProveedores, name='listarproveedores'),
     
+    path('addespecificaciones/', views.addEspecificaciones, name='addespecificaciones'),
+    path('listarespecificaciones/', views.listarEspecificaciones, name='listarespecificaciones'),
+    path('deleteEspecificacion/<id>/', views.deleteEspecificacion, name='deleteEspecificacion'),
+    
     path('editperfilusuario/<id>/', views.modificarPerfilUsuario, name='editperfilusuario'),
         
     # paths de autenticacion
