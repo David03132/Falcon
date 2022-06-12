@@ -1,5 +1,4 @@
 from datetime import timezone
-from tabnanny import verbose
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractUser
@@ -51,8 +50,8 @@ class Productos(models.Model):
 
     class Meta:
         db_table = 'PRODUCTOS'
-        verbose_name = 'PRODUCTO'
-        verbose_name_plural = 'PRODUCTOS'
+        verbose_name = 'Producto'
+        verbose_name_plural = 'Productos'
         ordering = ['id']
         
 
@@ -247,25 +246,3 @@ class Carrito_Compras(models.Model):
         verbose_name = 'Carrito_Compras'
         verbose_name_plural = 'Carrito_Compras'
         ordering = ['id']
-
-class EspecificacionProducto(models.Model):
-    nombre = models.CharField('Nombre',max_length=50)
-    
-    class Meta:
-        verbose_name = 'ESPECIFICACION'
-        verbose_name_plural = 'ESPECIFICACIONES'
-    
-    def __str__(self):
-        return self.nombre
-
-class EspecificacionProductoDetalle(models.Model):
-    producto = models.ForeignKey(Productos, on_delete=models.PROTECT)
-    especificacion = models.ForeignKey(EspecificacionProducto, on_delete=models.PROTECT)
-    detalle = models.CharField('Detalle',max_length=50)
-    
-    class Meta:
-        verbose_name = 'Detalle Especificacion'
-        verbose_name_plural = 'Detalles Especificaciones'
-    
-    def __str__(self):
-        return self.detalle

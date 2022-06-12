@@ -15,7 +15,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.views.generic import ListView, CreateView
 from django.db.models import Q
-from .forms import CustomUserCreationFormAdd, EspecificacionDetalleForm, ProductoForm, CategoriaForm, CustomUserCreationForm, MarcaForm, CustomUserCreationFormListado, ProveedoresForm, EspecificacionForm
+from .forms import CustomUserCreationFormAdd, ProductoForm, CategoriaForm, CustomUserCreationForm, MarcaForm, CustomUserCreationFormListado, ProveedoresForm
 
 
 # Create your views here.
@@ -99,7 +99,7 @@ def detalleProducto(request, id):
 @permission_required('app.add_producto', login_url='/login')
 def addProducto(request):
     data = {
-        'form' : ProductoForm(),
+        'form' : ProductoForm()
     }
 
     if request.method == 'POST':
@@ -131,23 +131,7 @@ def addProveedor(request):
             data["form"] = formulario   
     return render(request, 'proveedores/agregar.html', data)
 
-@login_required(login_url='/login')
-@permission_required('app.add_especificaciones', login_url='/login')
-def addEspecificaciones(request):
-    data = {
-        'form' : EspecificacionForm()
-    }
 
-    if request.method == 'POST':
-        formulario = EspecificacionForm(data=request.POST, files=request.FILES)
-
-        if formulario.is_valid():
-            formulario.save()
-            messages.success(request, "Registro agregado correctamente")
-            return redirect(to="/listarespecificaciones")
-        else:
-            data["form"] = formulario   
-    return render(request, 'especificacion/agregar.html', data)
 
 @permission_required('view_Producto', login_url='/login')
 def listarProductos(request):
@@ -195,56 +179,24 @@ def listarProveedores(request):
             }
     return render(request, 'listados/listadoproveedores.html', data)
 
-@permission_required('view_especificaciones', login_url='/login')
-def listarEspecificaciones(request):
-    busqueda = request.POST.get("buscador")
-    lista_especificacion = EspecificacionProducto.objects.order_by('id')
-    page = request.GET.get('page', 1)
-    if busqueda:
-        lista_especificacion = EspecificacionProducto.objects.filter(
-            Q(nombre__icontains = busqueda)
-        ).distinct()
-
-    try:
-        paginator = Paginator(lista_especificacion, 6)
-        lista_especificacion = paginator.page(page)
-    except:
-        raise Http404
-
-    data = {'entity': lista_especificacion,
-            'title': 'LISTADO DE ESPECIFICACIONES',
-            'paginator': paginator
-            }
-    return render(request, 'listados/listadoespecificaciones.html', data)
-
 
 @login_required(login_url='/login')
 @permission_required('change_Producto', login_url='/login')
 def editarProducto(request, id):
     producto = get_object_or_404(Productos, id=id)
     data = {
-        'form': ProductoForm(instance=producto),
-        'form2' : EspecificacionDetalleForm(instance=producto)
+        'form': ProductoForm(instance=producto)
     }
 
     if request.method == 'POST':
         formulario = ProductoForm(data=request.POST, instance=producto, files=request.FILES)
-        formulario2 = EspecificacionDetalleForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
-            formulario2.save()
             messages.success(request, "Registro modificado correctamente")
             return redirect(to="/listarproductos")
         data["form"] = formulario
     return render(request, 'producto/modificar.html', data)
 
-@login_required(login_url='/login')
-@permission_required('delete_Especificacion', login_url='/login')
-def deleteEspecificacion(request, id):
-    especificacion = get_object_or_404(EspecificacionProducto, id=id)
-    especificacion.delete()
-    messages.success(request, "Registro eliminado correctamente")
-    return redirect(to="/listadoespecificaciones/")
 
 @login_required(login_url='/login')
 @permission_required('delete_Producto', login_url='/login')
