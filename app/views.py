@@ -404,10 +404,10 @@ def modificarUsuario(request, id):
     
      
     data = {
-        'form': CustomUserCreationFormListado(instance=usuario)
+        'form': CustomUserCreationFormAdd(instance=usuario)
     }
     if request.method == 'POST':
-        formulario = CustomUserCreationFormListado(data=request.POST, instance=usuario)
+        formulario = CustomUserCreationFormAdd(data=request.POST, instance=usuario)
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Registro modificado correctamente")
@@ -432,7 +432,7 @@ def modificarProveedor(request, id):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Registro modificado correctamente")
-            return redirect(to="/listadoproveedores")
+            return redirect(to="/listarproveedores")
         else:
             data["form"] = formulario
 

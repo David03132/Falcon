@@ -18,7 +18,7 @@
                                 <tr class="text-center">
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">email</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Primer nombre</th>
                                     <th scope="col">Apellido paterno</th>
                                     <th scope="col">Apellido materno</th>
@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                                 {% load bootstrap_icons %} {% if entity %} {% for usuario in entity %}
-                                <tr>
+                                <tr class="text-center">
                                     <td>{{ usuario.id }}</td>
                                     <td>{{ usuario.username }}</td>
                                     <td>{{ usuario.email }}</td>

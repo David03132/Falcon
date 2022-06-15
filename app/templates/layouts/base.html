@@ -97,7 +97,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="{% url 'tienda:editperfilusuario' user.id %}">Mi perfil</a></li>
-                                {% if user.is_staff %}
+                                {% if user.is_superuser %}
                                 <li><a class="dropdown-item" href="/dashboard">Panel admin</a></li>
                                 {% endif %}
                             </div>
