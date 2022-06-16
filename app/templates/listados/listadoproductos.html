@@ -1,12 +1,8 @@
-{% extends 'layouts/baseadmin.html' %}
-
-
-
-{% block content %}
+{% extends 'layouts/baseadmin.html' %} {% block content %}
 <div class="min-vh-100 d-flex flex-colum py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-10 col-md-6 col-sm-4 animate__animated animate__backInRight animate__delay-0.4s">
+            <div class="col-lg-12 col-md-12 col-sm-12 ">
                 <div class="card">
                     <div class="card-header text-center font-weight-bold">
                         {{ title }}
@@ -14,7 +10,7 @@
                     <div class="card-body table-responsive align-items-center">
                         <!-- inline-block justify-content-end mb-2 mx-2 -->
                         <div class="d-flex mb-2">
-                            <a href="/addproducto" class="d-flex inline-block mx-auto btn btn-dark btn-sm" type="submit">
+                            <a style="background-color: #9226D9; color: white;" href="/addproducto" class="d-flex inline-block mx-auto btn btn btn-sm" type="submit">
                                 Nuevo Producto
                             </a>
 
@@ -23,7 +19,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-light border-1 small text-left" name="buscador" placeholder="Buscar..." value="{{ request.POST.buscador }}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary mx-1" type="submit"> 
+                                        <button style="background-color: #9226D9; color: white;" class="btn btn mx-1" type="submit"> 
                                                 <i class="fa fa-search bi-sm"></i>
                                             </button>
                                     </div>
@@ -35,25 +31,43 @@
                             <thead class="thead-dark text-center ">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">descripcion</th>
-                                    <th scope="col">precio</th>
-                                    <th scope="col">stock</th>
-                                    <th scope="col">categoria</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Video</th>
+                                    <th scope="col">¿Destacado?</th>
+                                    <th scope="col">Categoría</th>
+                                    <th scope="col">Marca</th>
                                     <th colspan="2">Opciones</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 {% load bootstrap_icons %} {% if entity %} {% for producto in entity %}
-                                <tr>
+                                <tr class="text-center">
                                     <td>{{ producto.id }}</td>
                                     <td>{{ producto.nombre }}</td>
                                     <td>{{ producto.precio }}</td>
                                     <td>{{ producto.stock }}</td>
+                                    <td> <a target="_blank" href="//youtube.com/watch?v={{ producto.videoid }}">Video del producto</a>  </td>           
+                                    <td>
+                                        {% if producto.destacado == True %}
+                                        <p>Es destacado</p>
+                                        {% else  %}
+                                        {% if producto.destacado == False %}
+                                        <p>No es destacado</p>
+                                        {% endif %}
+                                        {% endif %}                            
+                                    </td>
                                     <td>{{ producto.categoria }}</td>
+                                    <td>{{ producto.marca }}</td>
+                                    
+                                
                                     <td colspan="2">
                                         <a class="btn btn-secondary btn-sm" href="{% url 'tienda:editproducto' producto.id %}" type="button"><i class="fa fa-pencil"></i></a>
                                         <a class="btn btn-danger btn-sm" onclick="eliminarProducto({{producto.id}})" href="#" type="button"><i class="fa fa-trash"></i></a>
                                     </td>
+                                    
                                 </tr>
                                 <script>
                                     function eliminarProducto(id){

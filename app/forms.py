@@ -38,7 +38,10 @@ class CustomUserCreationFormAdd(UserCreationForm):
     
     class Meta:
         model = Cliente
-        fields = ["username", "first_name","last_name","ape_materno","email","password1","password2","region","provincia","comuna","calle","numero","depto","is_staff"]
+        fields = ["username", "first_name","last_name","ape_materno","email","password1","password2","region","provincia","comuna","calle","numero","depto","is_superuser"]
+        
+       
+        
         
 class CustomUserCreationFormListado(UserCreationForm):
     

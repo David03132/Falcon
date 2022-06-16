@@ -9,7 +9,7 @@
                     </div>
                     <div class="card-body  table-responsive">
                         <div class="d-flex justify-content-end mb-2 mx-2">
-                            <a href="/addcategoria" class="btn btn-dark btn-sm pull-right" type="submit">
+                            <a style="background-color: #9226D9; color: white;" href="/addcategoria" class="btn btn btn-sm pull-right" type="submit">
                             Nueva Categoria
                             </a>
                         </div>
@@ -23,7 +23,7 @@
                             </thead>
                             <tbody>
                                 {% load bootstrap_icons %} {% if entity %} {% for categoria in entity %}
-                                <tr>
+                                <tr class="text-center">
                                     <td>{{ categoria.id }}</td>
                                     <td>{{ categoria.nombre }}</td>
                                     <td colspan="2" class="text-center">

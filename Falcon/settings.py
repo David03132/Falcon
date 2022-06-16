@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'phonenumber_field',
     'django_bootstrap_icons',
     'crispy_forms',
+    
     
     'app',
 ]

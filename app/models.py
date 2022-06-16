@@ -126,7 +126,7 @@ class Envio(models.Model):
             
 class Cliente(AbstractUser):
     username  = models.CharField('Nombre de usuario',max_length=50, unique=True) 
-    email = models.CharField('Email',max_length=50, unique=True)
+    email = models.EmailField('Email',max_length=50, unique=True)
     first_name = models.CharField('Primer nombre',max_length=50, null=False)
     last_name = models.CharField('Apellido paterno',max_length=50, null=False)
     ape_materno = models.CharField('Apellido materno',max_length=50, null=False)
@@ -137,6 +137,7 @@ class Cliente(AbstractUser):
     region = models.ForeignKey(Region, on_delete=models.PROTECT)
     provincia = models.ForeignKey(Provincia, on_delete=models.PROTECT)
     comuna = models.ForeignKey(Comuna, on_delete=models.PROTECT)
+    is_superuser = models.BooleanField('Administrador')
     
     def __str__(self):
         return self.test
@@ -189,8 +190,9 @@ class Proveedor (models.Model):
     num_documento= models.IntegerField('Numero de documento')
     telefono= models.IntegerField('Telefono')
     email= models.EmailField('Email',max_length=50)
-    url= models.CharField('Enlace sitio web',max_length=100)
+    url= models.URLField('Enlace sitio web', max_length=200)
     comuna= models.ForeignKey(Comuna, on_delete=models.PROTECT)
+    
 
     def __str__(self):
         return self.nombre

@@ -11,7 +11,7 @@
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /></div>
             {% endif %}
             <div class="col-md-6">
-                {% if user.is_staff %}
+                {% if user.is_superuser %}
                 <div class="small mb-1">Código: {{ producto.id }}</div>
                 {% endif %}
                 
@@ -59,7 +59,7 @@
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Seguir Comprando</button>
                                         <a href="{% url 'tienda:addcart' producto.id %}">
-                                            <button type="button" class="btn btn-primary">Agregar</button>
+                                            <button style="background-color: #9226D9;" type="button" class="btn btn text-white">Agregar</button>
                                         </a>
                                     </div>
                                 </div>
@@ -79,11 +79,11 @@
         <div class="container p-5">
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item mr-1 active">
-                    <a href="#section-one" class="nav-link bg-primary text-white" data-toggle="tab">GENERAL</a>
+                    <a style="background-color: #9226D9;" href="#section-one" class="nav-link  text-white" data-toggle="tab">GENERAL</a>
                 </li>
                 
                 <li class="nav-item ml-1">
-                    <a href="#section-three" class="nav-link bg-info text-white" data-toggle="tab">GARANTIA</a>
+                    <a style="background-color: #9226D9;" href="#section-three" class="nav-link  text-white" data-toggle="tab">GARANTIA</a>
                 </li>
             </ul>
             <div class="tab-content shadow-lg">

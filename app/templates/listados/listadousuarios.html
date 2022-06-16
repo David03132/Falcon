@@ -9,7 +9,7 @@
                     </div>
                     <div class="card-body  table-responsive">
                         <div class="d-flex justify-content-end mb-2 mx-2">
-                            <a href="/addusuario" class="btn btn-dark btn-sm pull-right" type="submit">
+                            <a style="background-color: #9226D9; color: white;" href="/addusuario" class="btn btn btn-sm pull-right" type="submit">
                             Nuevo Usuario
                             </a>
                         </div>
@@ -18,7 +18,7 @@
                                 <tr class="text-center">
                                     <th scope="col">#</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">email</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Primer nombre</th>
                                     <th scope="col">Apellido paterno</th>
                                     <th scope="col">Apellido materno</th>
@@ -33,7 +33,7 @@
                             </thead>
                             <tbody>
                                 {% load bootstrap_icons %} {% if entity %} {% for usuario in entity %}
-                                <tr>
+                                <tr class="text-center">
                                     <td>{{ usuario.id }}</td>
                                     <td>{{ usuario.username }}</td>
                                     <td>{{ usuario.email }}</td>
