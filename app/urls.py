@@ -63,7 +63,6 @@ urlpatterns = [
     path('restarcart/<producto_id>/', views.restar_producto, name="restarcart"),
 
     path('cleancart/', views.cleancart, name="cleancart"),
-
-    path('procesar_compra/', views.procesar_compra, name="procesar_compra"),
-    
+     
+    path('procesar_compra/', views.procesar_compra, name="procesar_compra"), 
 ]

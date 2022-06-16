@@ -1,11 +1,21 @@
+import requests
+import json
+from transbank.error.transbank_error import TransbankError
+from transbank.webpay.webpay_plus.transaction import Transaction
+from django.shortcuts import redirect, render
+from django.http.response import HttpResponse
+
+
 class Carro:
     def __init__(self, request):
         self.request = request
-        self.session = request.session 
+        self.session = request.session
+        self.url_transbank= ""
         carro=self.session.get("carro")
         if not carro:
             carro=self.session["carro"]={}
         self.carro=carro
+        
 
     def agregar(self, producto):
         if(str(producto.id) not in self.carro.keys()):
@@ -47,3 +57,23 @@ class Carro:
     def limpiar_carro(self):
         self.session["carro"]={}
         self.session.modified=True
+        
+    """def compra_transbank():
+        print("Webpay Plus Transaction.create")
+        buy_order = str('ordenCompra12345678')
+        session_id = str('sesion1234557545')
+        amount = 1000
+        return_url = 'http://www.comercio.cl/webpay/retorno'
+
+        create_request = {
+            "buy_order": buy_order,
+            "session_id": session_id,
+            "amount": amount,
+            "return_url": return_url,
+        }
+
+        response = (Transaction()).create(buy_order, session_id, amount, return_url)
+
+        print(response)
+        print(create_request)
+        return render('webpay/plus/create.html', request=create_request, response=response)"""
