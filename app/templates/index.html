@@ -85,7 +85,7 @@
                             <!-- Product actions-->
                             <div class="card-footer p-2 pt-2 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a class="btn btn-dark mt-auto" href="{% url 'tienda:detalleproducto' producto.id %}">Ver detalle</a> 
+                                    <a style="background-color: #9226D9; color: white;" class="btn btn mt-auto" href="{% url 'tienda:detalleproducto' producto.id %}">Ver detalle</a> 
                                     
                                     {% if user.is_authenticated%}
                                     <a href="{% url 'tienda:addcart' producto.id %}" class="btn btn-primary mt-2" type="button">
