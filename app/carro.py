@@ -13,15 +13,18 @@ class Carro:
                 "producto_id" : producto.id,
                 "nombre" : producto.nombre,
                 "precio" : producto.precio,
+                "descuento" : producto.descuento,
                 "cantidad" : 1,
-                "imagen" : producto.imagen.url
+                "imagen" : producto.imagen.url,
+                "total" : producto.precio if not producto.descuento else producto.precio-(producto.precio*(producto.descuento / 100))
             }
         else:
-           for key, value in self.carro.items():
-               if key==str(producto.id):
-                   value["cantidad"]=value["cantidad"]+1
-                   value["precio"]=value["precio"]+producto.precio
-                   break
+            for key, value in self.carro.items():
+                if key==str(producto.id):
+                    value["cantidad"]=value["cantidad"]+1
+                    value["precio"]=value["precio"]+producto.precio
+                    value["total"]=value["total"]+producto.precio if not producto.descuento else value["total"]+producto.precio-(producto.precio*(producto.descuento / 100))
+                    break
         self.guardar_carro()
     
     def guardar_carro(self):
