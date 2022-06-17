@@ -141,7 +141,7 @@ class Cliente(AbstractUser):
     region = models.ForeignKey(Region, on_delete=models.PROTECT)
     provincia = models.ForeignKey(Provincia, on_delete=models.PROTECT)
     comuna = models.ForeignKey(Comuna, on_delete=models.PROTECT)
-    is_superuser = models.BooleanField('Administrador')
+    is_superuser = models.BooleanField('Administrador', null=True)
     
     def __str__(self):
         return self.test
