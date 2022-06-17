@@ -36,14 +36,18 @@ class Productos(models.Model):
     nombre = models.CharField('Nombre',max_length=100)
     imagen = models.ImageField('Imagen',upload_to='productos', null=True)
     descripcion = models.CharField('Descripcion',max_length=500)
-    precio = models.PositiveIntegerField('Precio')
+    precio = models.IntegerField('Precio',validators=[MinValueValidator(0.0)])
     stock = models.IntegerField('Stock',null=True, default=0, validators=[MaxValueValidator(100),
             MinValueValidator(1)])     
     videoid = models.CharField('Enlace del video',max_length=100, null=True)
     destacado= models.BooleanField('¿Es destacado?')
     categoria = models.ForeignKey(Categorias, on_delete=models.PROTECT)
-    marca = models.ForeignKey(Marcas, on_delete=models.PROTECT) 
+    marca = models.ForeignKey(Marcas, on_delete=models.PROTECT)
+    descuento = models.IntegerField('Descuento',null=True, default=0, validators=[MaxValueValidator(100)])
     
+    @property
+    def precio_descuento(self):
+        return 100 * (self.precio - self.descuento) / self.precio
 
     def __str__(self):
         return self.nombre

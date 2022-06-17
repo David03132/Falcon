@@ -22,10 +22,21 @@
                 
                 {% load humanize %}
                 <h3 class="display-5 fw-bolder">{{ producto.nombre }}</h3>
+                {% if producto.descuento > 0 %}
                 <div class="fs-5 mb-5">
                    
-                    <span><h2>$ {{ producto.precio | intcomma}} </h2></span> 
+                    <span><h2>$ {{ producto.precio_descuento | intcomma}} </h2></span> 
                 </div>
+                <div class="fs-5 mb-5">
+                    <span class="text-muted">Precio anterior: $ {{ producto.precio | intcomma}}</span>
+                    {%else%}
+                    <div class="fs-5 mb-5">
+                       
+                        <span><h2>$ {{ producto.precio | intcomma}} </h2></span> 
+                    </div>
+                {% endif %}
+
+
                
                 <h4> Cantidad Disponible: {{ producto.stock }} </h4>
                 <div class="d-flex">
