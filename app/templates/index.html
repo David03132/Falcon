@@ -71,8 +71,14 @@
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ producto.nombre }}</h5>
+                                    {% if producto.descuento > 0 %}
                                     <!-- Product price-->
+                                    $ {{ producto.precio | intcomma }} - {{ producto.descuento }}%
+                                    <br></br>
+                                    $ {{ producto.precio_descuento | intcomma }}
+                                    {% else %}
                                     $ {{ producto.precio | intcomma }}
+                                    {% endif %}
                                 </div>
                             </div>
                             

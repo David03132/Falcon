@@ -47,7 +47,7 @@ class Productos(models.Model):
     
     @property
     def precio_descuento(self):
-        return self.precio - (self.precio * self.descuento / 100)
+        return round(self.precio - (self.precio * self.descuento / 100))
 
     def __str__(self):
         return self.nombre
