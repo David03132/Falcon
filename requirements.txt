@@ -1,7 +1,6 @@
-pip install django
-pip install django_bootstrap_icons
-pip install django-crispy-forms
-pip install pymysql
-pip install social-auth-app-django
-pip install Pillow
-pip install django-phonenumber-field[phonenumberslite]
+Django==3.2.13
+django-bootstrap-icons==0.7.9
+django-crispy-forms==1.14.0
+Pillow==9.1.1
+PyMySQL==1.0.2
+social-auth-app-django==5.0.0
