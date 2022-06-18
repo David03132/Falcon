@@ -33,6 +33,43 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <style>
+        @media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+    }
+
+    .carousel-inner .carousel-item.active,
+    .carousel-inner .carousel-item-next,
+    .carousel-inner .carousel-item-prev {
+        display: flex;
+    }
+
+    /* display 3 */
+    @media (min-width: 768px) {
+        
+        .carousel-inner .carousel-item-right.active,
+        .carousel-inner .carousel-item-next {
+        transform: translateX(33.333%);
+        }
+        
+        .carousel-inner .carousel-item-left.active, 
+        .carousel-inner .carousel-item-prev {
+        transform: translateX(-33.333%);
+        }
+    }
+
+    .carousel-inner .carousel-item-right,
+    .carousel-inner .carousel-item-left{ 
+    transform: translateX(0);
+    }
+
+
+    </style>
     
 </head>
 
@@ -117,23 +154,25 @@
                         
                         <li class="nav-item">
                             <button style="background-color: #9226D9; " class="btn btn">
-                            <a style="color: white;" class="nav-link active" aria-current="page" href="{% url 'logout' %}">
+                                <a style="color: white;" class="nav-link active" aria-current="page" href="{% url 'logout' %}">
 
-                                        Cerrar Sesión
+                                            Cerrar Sesión
                                 </a>
                             </button>
                         </li>
                         &nbsp;
                         &nbsp;
                         
-
+                        
                         <div class="d-flex">
                             <a style="border-color: #9226D9;" href="{% url 'tienda:viewcart' %}" class="btn btn">
                                 <i class="fa fa-shopping-cart me-1"></i>
                                 <span style="background-color: #9226D9;" class="badge  text-white ms-1 rounded-pill">$ {{ importe_total_carro | intcomma }}</span>
                             </a>
                         </div>
+                        
                         {% else %}
+                        {% load humanize %}
                         <!-- Si no está autenticado mostrar -->
                         <li class="nav-item">
                             <button style="background-color: #9226D9; " class="btn btn">
@@ -153,6 +192,17 @@
                                 Registrar
                             </a>
                         </button>
+                        </li>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <li>
+                            <div class="d-flex">
+                                <a style="border-color: #9226D9;" href="{% url 'tienda:viewcart' %}" class="btn btn">
+                                    <i class="fa fa-shopping-cart me-1"></i>
+                                    <span style="background-color: #9226D9;" class="badge  text-white ms-1 rounded-pill">$ {{ importe_total_carro | intcomma }}</span>
+                                </a>
+                            </div>
                         </li>
                         
                         {% endif %}

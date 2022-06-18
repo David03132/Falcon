@@ -53,7 +53,7 @@
                                 </tr>
                                 {% endfor %} {% else %}
                                 <tr>
-                                    <td colspan="5">
+                                    <td colspan="8">
                                         <div class="alert alert-danger text-center ">
 
                                             No se agregaron productos al carrito
@@ -71,9 +71,19 @@
                     
                 </div>
                 <div class=" text-center mt-3 mx-auto ">
+                    {% if user.is_authenticated %}
                     {% if request.session.carro.items %}
                     <a class="btn btn-danger mx-auto mt-0 " href="{% url 'tienda:procesar_compra' %}">Procesar Compra</a> {% else %}
                     <a class="btn btn-danger mx-auto mt-0 disabled" href="">Procesar Compra</a> {% endif %}
+                    {% else %}
+                    <h3>Registrate o inicia sesión para efectuar la compra</h3>
+                    <a style="background-color: #9226D9; color: white;" class="mt-3 btn btn mx-auto mt-0 " href="/login">Ingresar</a> 
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <a style="background-color: #9226D9; color: white;" class="mt-3 btn btn mx-auto mt-0 " href="/registrar">Registrate</a> 
+                    {% endif %}
                 </div>
             </div>
 

@@ -87,11 +87,11 @@
                                 <div class="text-center">
                                     <a style="background-color: #9226D9; color: white;" class="btn btn mt-auto" href="{% url 'tienda:detalleproducto' producto.id %}">Ver detalle</a> 
                                     
-                                    {% if user.is_authenticated%}
+                                    
                                     <a href="{% url 'tienda:addcart' producto.id %}" class="btn btn-primary mt-2" type="button">
                                         <i class="bi-cart-fill me-1"></i> Agregar al Carrito
                                     </a>
-                                    {% endif %}
+                                    
                                     
                                     
                                     
@@ -148,11 +148,11 @@
                                 <div class="text-center">
                                     <a style="background-color: #9226D9; color: white;" class="btn btn mt-auto" href="{% url 'tienda:detalleproducto' producto.id %}">Ver detalle</a> 
                                     
-                                    {% if user.is_authenticated%}
+                                    
                                     <a href="{% url 'tienda:addcart' producto.id %}" class="btn btn-primary mt-2" type="button">
                                         <i class="bi-cart-fill me-1"></i> Agregar al Carrito
                                     </a>
-                                    {% endif %}
+                                    
                                     
                                     
                                     
@@ -179,6 +179,141 @@
                 </div>
             </div>
         </section>
+
+
+        <div class="container text-center my-3">
+            
+            <h2 class="font-weight-light">XDE</h2>
+            <div class="row mx-auto my-auto">
+                <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+                    <div class="carousel-inner w-100" role="listbox">
+                        {% if entity %} {% for producto in entity %}
+                        {% if producto.destacado %}
+                        {% if forloop.first %}
+                        <div class="carousel-item active">                           
+                            <div class="col-md-4">
+                                <div class="card h-100 text-center py-3">
+                                    {% if producto.imagen %}
+                                    <img class="mx-auto d-block img-fluid" src="{{ producto.imagen.url }}" alt="producto" width="150px%" /> {% else %}
+                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="sinImagen" /> {% endif %}
+                                    <!-- Product details-->
+                                    {% load humanize %}
+                                    <div class="card-body p-3">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">{{ producto.nombre }}</h5>
+                                            {% if producto.descuento > 0 %}
+                                            <!-- Product price-->
+                                            $ {{ producto.precio | intcomma }} - {{ producto.descuento }}%
+                                            <br></br>
+                                            $ {{ producto.precio_descuento | intcomma }}
+                                            {% else %}
+                                            $ {{ producto.precio | intcomma }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-2 pt-2 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a style="background-color: #9226D9; color: white;" class="btn btn mt-auto" href="{% url 'tienda:detalleproducto' producto.id %}">Ver detalle</a>                                                                                
+                                            <a href="{% url 'tienda:addcart' producto.id %}" class="btn btn-primary " type="button">
+                                                <i class="bi-cart-fill me-1"></i> Agregar al Carrito
+                                            </a>
+
+                                        </div>                               
+                                    </div> 
+                                </div>
+                            </div>
+                            
+                        </div>
+                        {% else %}
+                        <div class="carousel-item ">
+                            
+                            <div class="col-md-4">
+                                <div class="card h-100 text-center py-3">
+                                    {% if producto.imagen %}
+                                    <img class="mx-auto d-block img-fluid" src="{{ producto.imagen.url }}" alt="producto" width="150px%" /> {% else %}
+                                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="sinImagen" /> {% endif %}
+                                    <!-- Product details-->
+                                    {% load humanize %}
+                                    <div class="card-body p-3">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">{{ producto.nombre }}</h5>
+                                            {% if producto.descuento > 0 %}
+                                            <!-- Product price-->
+                                            $ {{ producto.precio | intcomma }} - {{ producto.descuento }}%
+                                            <br></br>
+                                            $ {{ producto.precio_descuento | intcomma }}
+                                            {% else %}
+                                            $ {{ producto.precio | intcomma }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-2 pt-2 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a style="background-color: #9226D9; color: white;" class="btn btn mt-auto" href="{% url 'tienda:detalleproducto' producto.id %}">Ver detalle</a> 
+                                            
+                                            
+                                            <a href="{% url 'tienda:addcart' producto.id %}" class="btn btn-primary " type="button">
+                                                <i class="bi-cart-fill me-1"></i> Agregar al Carrito
+                                            </a>
+
+                                        </div>                               
+                                    </div> 
+                                </div>
+                            </div>
+                            
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %} 
+                        
+
+                        
+
+                    </div>
+                    <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+
+        <script>
+            $('#recipeCarousel').carousel({
+  interval: 10000
+})
+
+$('.carousel .carousel-item').each(function(){
+    var minPerSlide = 3;
+    var next = $(this).next();
+    if (!next.length) {
+    next = $(this).siblings(':first');
+    }
+    next.children(':first-child').clone().appendTo($(this));
+    
+    for (var i=0;i<minPerSlide;i++) {
+        next=next.next();
+        if (!next.length) {
+        	next = $(this).siblings(':first');
+      	}
+        
+        next.children(':first-child').clone().appendTo($(this));
+      }
+});
+
+        </script>
+
+
     </div>
 </div>
 {% endblock %}
