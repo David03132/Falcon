@@ -43,7 +43,7 @@ class Carro:
             if key==str(producto.id):
                 value["cantidad"]=value["cantidad"]-1
                 value["precio"]=value["precio"]-producto.precio
-                value["total"]=value["total"]-producto.precio if not producto.descuento else round(producto.precio-(producto.precio*(producto.descuento / 100)))
+                value["total"]=value["total"]-producto.precio if not producto.descuento else round(value["total"]-(producto.precio-(producto.precio*(producto.descuento / 100))))
                 if value["cantidad"]<1:
                     self.eliminar(producto)
                 break
