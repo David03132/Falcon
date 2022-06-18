@@ -1,7 +1,7 @@
 # Instrucciones de ejecución
 
 ## Requisitos previos: 
-*Python 3.7.0 o superior*
+*Python 3.7.0 o superior* y
 *Xampp*
 
 ### 1.Crear una base de datos llamada falcon en MySQL
